@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Square-A-Picture</title>
+        <style>
+        body
+        {
+            font-family: verdana;
+        }
+        </style>
+    </head>
+    <body>
+        <h2>Square-A-Picture</h2>
+        <div id="introduction">
+            <p>This tool changes the dimensions of a picture to become a square.</p>
+            <p>Simply browse to your image file and click <strong>GO</strong>. The resized image will be shown on the page.</p>
+        </div>
+        <div id="input">
+            <form>
+                <label><strong>Select your original image:</strong></label>
+                <input type="file" id="fileSelection" />
+                <br/>
+                <br/>
+                <input type="button" id="buttonGo" value="GO" />
+            </form>
+        </div>
+        <br/>
+        <br/>
+        <div id="output">
+            <!--
+            <div id="divOriginalImageContainer"></div>
+            -->
+            <div id="divResizedImageContainer"></div>
+        </div>
+    </body>
+    <script type="text/javascript" src="resize.js"></script>
+    <script type="text/javascript">
+    window.onload = function (evt) {
+        var view = {
+            getImageFilePath: function () {
+                                  return document.getElementById("fileSelection").value;
+                              },
+            showOriginalImage: function (image) {
+                                   var div = document.getElementById("divOriginalImageContainer");
+                                   div.innerHTML = "";
+                                   div.appendChild(image);
+                               },
+            showResizedImage: function (image) {
+                                   var div = document.getElementById("divResizedImageContainer");
+                                   div.innerHTML = "";
+                                   div.appendChild(image);
+                              },
+            show: function () {
+                      document.getElementById("fileSelection").value = "";
+                  }
+
+        };
+        var resizerController = new ResizeJS.ResizerController(view, new ResizeJS.ResizerService());
+        document.getElementById("buttonGo").onclick = function (evt) {
+            resizerController.go();
+        };
+        resizerController.initialise();
+    };
+    </script>
+</html>
