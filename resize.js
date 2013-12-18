@@ -25,7 +25,7 @@ var ResizeJS = ResizeJS || (function () {
             callback({original: originalImage, resized: resizedImage});
         };
         originalImage.src = imageFilePath;
-    }
+    };
 
     function findMaximumDimension(height, width) {
         return Math.max(height, width);
@@ -40,11 +40,10 @@ var ResizeJS = ResizeJS || (function () {
     ResizerController.prototype.constructor = ResizerController;
     ResizerController.prototype.initialise = function () {
         this.view.show();
-    }
+    };
     ResizerController.prototype.go = function () {
         var that = this;
         this.resizerService.resize(this.view.getImageFilePath(), function (images) {
-            //that.view.showOriginalImage(images.original);
             that.view.showResizedImage(images.resized);
         });
     };
