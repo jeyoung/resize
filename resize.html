@@ -35,25 +35,25 @@
     window.onload = function (evt) {
         var view = {
             getImageFilePath: function () {
-                                  return document.getElementById("fileSelection").value;
+                                  return document.querySelector("#fileSelection").value;
                               },
             showOriginalImage: function (image) {
-                                   var div = document.getElementById("divOriginalImageContainer");
+                                   var div = document.querySelector("#divOriginalImageContainer");
                                    div.innerHTML = "";
                                    div.appendChild(image);
                                },
             showResizedImage: function (image) {
-                                   var div = document.getElementById("divResizedImageContainer");
+                                   var div = document.querySelector("#divResizedImageContainer");
                                    div.innerHTML = "";
                                    div.appendChild(image);
                               },
             show: function () {
-                      document.getElementById("fileSelection").value = "";
+                      document.querySelector("#fileSelection").value = "";
                   }
 
         };
         var resizerController = new ResizeJS.ResizerController(view, new ResizeJS.ResizerService());
-        document.getElementById("buttonGo").onclick = function (evt) {
+        document.querySelector("#buttonGo").onclick = function (evt) {
             resizerController.go();
         };
         resizerController.initialise();
