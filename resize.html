@@ -34,8 +34,8 @@
     <script type="text/javascript">
     window.onload = function (evt) {
         var view = {
-            getImageFilePath: function () {
-                                  return document.querySelector("#fileSelection").value;
+            getImageFile: function () {
+                                  return document.querySelector("#fileSelection").files[0];
                               },
             showOriginalImage: function (image) {
                                    var div = document.querySelector("#divOriginalImageContainer");

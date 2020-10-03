@@ -3,27 +3,31 @@ var ResizeJS = ResizeJS || (function () {
     function ResizerService() {
     }
 
-    ResizerService.prototype.resize = function (imageFilePath, callback) {
-        var originalImage = document.createElement("img");
-        originalImage.onload = function () {
-            var maximumDimension = findMaximumDimension(originalImage.height, originalImage.width);
+    ResizerService.prototype.resize = function (file, callback) {
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            var originalImage = document.createElement("img");
+            originalImage.onload = function () {
+                var maximumDimension = findMaximumDimension(originalImage.height, originalImage.width);
 
-            var canvas = document.createElement("canvas");
-            canvas.height = canvas.width = maximumDimension;
+                var canvas = document.createElement("canvas");
+                canvas.height = canvas.width = maximumDimension;
 
-            var position = {x: (maximumDimension-originalImage.width)*0.5, y: (maximumDimension-originalImage.height)*0.5};
+                var position = {x: (maximumDimension-originalImage.width)*0.5, y: (maximumDimension-originalImage.height)*0.5};
 
-            var context = canvas.getContext("2d");
-            context.fillStyle = "#000000";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(originalImage, position.x, position.y);
+                var context = canvas.getContext("2d");
+                context.fillStyle = "#000000";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(originalImage, position.x, position.y);
 
-            var resizedImage = document.createElement("img");
-            resizedImage.src = canvas.toDataURL("image/png");
+                var resizedImage = document.createElement("img");
+                resizedImage.src = canvas.toDataURL("image/png");
 
-            callback({original: originalImage, resized: resizedImage});
+                callback({original: originalImage, resized: resizedImage});
+            };
+            originalImage.src = e.target.result;
         };
-        originalImage.src = imageFilePath;
+        fr.readAsDataURL(file);
     };
 
     function findMaximumDimension(height, width) {
@@ -40,7 +44,7 @@ var ResizeJS = ResizeJS || (function () {
     };
     ResizerController.prototype.go = function () {
         var that = this;
-        this.resizerService.resize(this.view.getImageFilePath(), function (images) {
+        this.resizerService.resize(this.view.getImageFile(), function (images) {
             that.view.showResizedImage(images.resized);
         });
     };
