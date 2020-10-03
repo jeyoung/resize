@@ -1,9 +1,8 @@
 var ResizeJS = ResizeJS || (function () {
 
-    function ResizerService() { 
+    function ResizerService() {
     }
 
-    ResizerService.prototype.constructor = ResizerService;
     ResizerService.prototype.resize = function (imageFilePath, callback) {
         var originalImage = document.createElement("img");
         originalImage.onload = function () {
@@ -31,13 +30,11 @@ var ResizeJS = ResizeJS || (function () {
         return Math.max(height, width);
     }
 
-
     function ResizerController(view, resizerService) {
         this.view = view;
         this.resizerService = resizerService;
     }
 
-    ResizerController.prototype.constructor = ResizerController;
     ResizerController.prototype.initialise = function () {
         this.view.show();
     };
